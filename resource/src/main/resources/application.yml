@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bookstore
+    username: bookstore
+#    password: bookstore # see gradle.properties
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update # development only
+management:
+  metrics:
+    enabled: false
+  endpoints:
+    web:
+      discovery:
+        enabled: false
+      exposure:
+        include: ['health']
