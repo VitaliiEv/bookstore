@@ -1,0 +1,10 @@
+spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/bookstore-test
+#    username: bookstore-test
+#    password: bookstore-test
+  jpa:
+    show-sql: true
+    hibernate:
+      format_sql: true
+      ddl-auto: update
