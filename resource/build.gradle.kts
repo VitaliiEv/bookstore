@@ -44,7 +44,7 @@ tasks.test {
 
 jib {
     from {
-        image = "eclipse-temurin:17-jre-focal"
+        image = "eclipse-temurin:17-jre-alpine"
         platforms {
             platform {
                 architecture = "${findProperty("jibArchitecture") ?: "amd64"}"

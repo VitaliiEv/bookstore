@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   bookstore:
-    image: bookstore
+    image: resource
     env_file:
       - .env
     depends_on:
@@ -10,7 +10,7 @@ services:
       bookstore-discovery:
         condition: service_healthy
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:${RESOURCE_PORT}/actuator/health" ]
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:${RESOURCE_PORT}/actuator/health | grep UP || exit -1" ]
       interval: 10s
       timeout: 10s
       retries: 3
@@ -21,7 +21,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
     ports:
-      - "8080:8080"
+      - "8080:${RESOURCE_PORT}"
   bookstore-postgresql:
     image: postgres:latest
     env_file:
@@ -43,7 +43,7 @@ services:
     env_file:
       - .env
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:${DISCOVERY_PORT}/actuator/health" ]
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:${DISCOVERY_PORT}/actuator/health | grep UP || exit -1" ]
       interval: 10s
       timeout: 10s
       retries: 3

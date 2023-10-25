@@ -2,7 +2,7 @@ server:
   port: ${RESOURCE_PORT:8080}
 spring:
   application:
-    name: bookstore
+    name: bookstore-resource
   datasource:
     url: jdbc:postgresql://localhost:${DB_PORT:5432}/${DB_NAME:bookstore}
     username: ${DB_USERNAME:bookstore}
@@ -23,6 +23,6 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:${DISCOVERY_PORT:8761}/eureka
+      defaultZone: http://${DISCOVERY_SERVICE:localhost}:${DISCOVERY_PORT:8761}/eureka
   instance:
     preferIpAddress: true
