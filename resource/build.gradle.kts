@@ -15,6 +15,7 @@ repositories {
 
 dependencies {
     val lombokVersion = properties["lombokVersion"] as? String
+    val springBootEurekaVersion = properties["springBootEurekaVersion"] as? String
 
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -22,6 +23,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:${springBootEurekaVersion}")
     implementation("org.postgresql:postgresql:42.6.0")
     compileOnly("org.projectlombok:lombok:${lombokVersion}")
     annotationProcessor("org.projectlombok:lombok:${lombokVersion}")

@@ -7,6 +7,8 @@ services:
     depends_on:
       bookstore-postgresql:
         condition: service_healthy
+      bookstore-discovery:
+        condition: service_healthy
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:${RESOURCE_PORT}/actuator/health" ]
       interval: 10s
@@ -35,5 +37,16 @@ services:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     ports:
-      - "5432:5432"
       - "5432:${DB_PORT}"
+  bookstore-discovery:
+    image: discovery:latest
+    env_file:
+      - .env
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:${DISCOVERY_PORT}/actuator/health" ]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    ports:
+      - "8761:${DISCOVERY_PORT}"
