@@ -1,8 +1,12 @@
+server:
+  port: ${RESOURCE_PORT:8080}
 spring:
+  application:
+    name: bookstore
   datasource:
-    url: jdbc:postgresql://localhost:5432/bookstore
-    username: bookstore
-#    password: bookstore # see gradle.properties
+    url: jdbc:postgresql://localhost:${DB_PORT:5432}/${DB_NAME:bookstore}
+    username: ${DB_USERNAME:bookstore}
+    password: ${DB_PASSWORD:bookstore}
   jpa:
     open-in-view: false
     hibernate:

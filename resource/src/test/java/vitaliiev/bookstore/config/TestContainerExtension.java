@@ -12,7 +12,6 @@ public class TestContainerExtension implements BeforeAllCallback, AfterAllCallba
     public void beforeAll(ExtensionContext context) {
         testContainer = TestContainer.getInstance();
         testContainer.start();
-//        String jdbcUrl = String.format("jdbc:postgresql://localhost:%d/prop", testContainer.getFirstMappedPort());
         System.setProperty("spring.datasource.url", testContainer.getJdbcUrl());
         System.setProperty("spring.datasource.username", testContainer.getUsername());
         System.setProperty("spring.datasource.password", testContainer.getPassword());

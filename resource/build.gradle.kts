@@ -39,17 +39,6 @@ tasks.test {
     useJUnitPlatform()
 }
 
-tasks.processResources {
-    expand(project.properties)
-}
-
-val password = properties["datasource.password"] as? String
-
-tasks.bootRun {
-    if (password != null) {
-        systemProperty("spring.datasource.password", password)
-    }
-}
 
 jib {
     from {
@@ -62,11 +51,9 @@ jib {
         }
     }
     to {
-        image = "bookstore:latest"
+        image = "${project.name}:latest"
     }
     container {
-        ports = mutableListOf("8080")
-        jvmFlags = mutableListOf("-Dspring.datasource.password=$password")
         mainClass = "vitaliiev.BookStore"
     }
 }
