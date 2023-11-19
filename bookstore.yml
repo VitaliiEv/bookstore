@@ -21,7 +21,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
     ports:
-      - "8080:${RESOURCE_PORT}"
+      - "8081:${RESOURCE_PORT}"
   bookstore-postgresql:
     image: postgres:latest
     env_file:
@@ -50,3 +50,18 @@ services:
       start_period: 10s
     ports:
       - "8761:${DISCOVERY_PORT}"
+  bookstore-gateway:
+    image: gateway:latest
+    env_file:
+      - .env
+    depends_on:
+      bookstore-discovery:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:${GATEWAY_PORT}/actuator/health | grep UP || exit -1" ]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    ports:
+      - "8080:${GATEWAY_PORT}"
