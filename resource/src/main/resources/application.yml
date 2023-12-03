@@ -2,7 +2,7 @@ server:
   port: ${RESOURCE_PORT:8081}
 spring:
   application:
-    name: bookstore-resource
+    name: bookstore
   datasource:
     url: jdbc:postgresql://localhost:${DB_PORT:5432}/${DB_NAME:bookstore}
     username: ${DB_USERNAME:bookstore}
@@ -11,6 +11,11 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: update # development only
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://auth"
 management:
   metrics:
     enabled: false
@@ -23,6 +28,6 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://${DISCOVERY_SERVICE:localhost}:${DISCOVERY_PORT:8761}/eureka
+      defaultZone: ${DISCOVERY_SERVICE_URL:http://client:client@localhost:8761/eureka}
   instance:
     preferIpAddress: true

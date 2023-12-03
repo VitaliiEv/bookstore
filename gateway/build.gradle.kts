@@ -16,6 +16,7 @@ dependencies {
     val springBootEurekaVersion = properties["springBootEurekaVersion"] as? String
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.cloud:spring-cloud-starter-gateway:${springBootEurekaVersion}")
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:${springBootEurekaVersion}")
 

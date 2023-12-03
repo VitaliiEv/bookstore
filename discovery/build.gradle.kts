@@ -15,6 +15,8 @@ repositories {
 dependencies {
     val springBootEurekaVersion = properties["springBootEurekaVersion"] as? String
 
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:${springBootEurekaVersion}")
 
     testImplementation(platform("org.junit:junit-bom:5.9.1"))

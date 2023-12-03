@@ -1,9 +1,23 @@
+application:
+  username: ${DISCOVERY_USERNAME:admin}
+  password: ${DISCOVERY_PASSWORD:{bcrypt}$2a$12$jnx3swERBc7frFLwC/WFAORmQHgvB7cz75uFMDkZpzRmfp8weSKhC}
 server:
   port: ${DISCOVERY_PORT:8761}
 spring:
   application:
-    name: bookstore-discovery
+    name: ${DISCOVERY_SERVICE:discovery}
+management:
+  metrics:
+    enabled: false
+  endpoints:
+    web:
+      discovery:
+        enabled: false
+      exposure:
+        include: [ 'health', 'info' ]
 eureka:
   client:
-    registerWithEureka: false
+    registerWithEureka: true
     fetchRegistry: false
+  instance:
+    preferIpAddress: true
