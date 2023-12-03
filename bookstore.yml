@@ -9,6 +9,8 @@ services:
         condition: service_healthy
       bookstore-discovery:
         condition: service_healthy
+      bookstore-auth:
+        condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "wget -qO- http://localhost:${RESOURCE_PORT}/actuator/health | grep UP || exit -1" ]
       interval: 10s
@@ -21,7 +23,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
     ports:
-      - "8081:${RESOURCE_PORT}"
+      - "8081:${RESOURCE_PORT}" # todo dont expose on production
   bookstore-postgresql:
     image: postgres:latest
     env_file:
@@ -65,3 +67,18 @@ services:
       start_period: 10s
     ports:
       - "8080:${GATEWAY_PORT}"
+  bookstore-auth:
+    image: auth:latest
+    env_file:
+      - .env
+    depends_on:
+      bookstore-discovery:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:${AUTH_SERVER_PORT}/actuator/health | grep UP || exit -1" ]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    ports:
+      - "8082:${AUTH_SERVER_PORT}"  # todo dont expose on production

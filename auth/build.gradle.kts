@@ -37,3 +37,21 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+jib {
+    from {
+        image = "eclipse-temurin:17-jre-alpine"
+        platforms {
+            platform {
+                architecture = "${findProperty("jibArchitecture") ?: "amd64"}"
+                os = "linux"
+            }
+        }
+    }
+    to {
+        image = "${project.name}:latest"
+    }
+    container {
+        mainClass = "vitaliiev.bookstore.BookstoreAuth"
+    }
+}
