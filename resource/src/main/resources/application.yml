@@ -28,6 +28,6 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${DISCOVERY_SERVICE:http://client:client@localhost:8761/eureka}
+      defaultZone: ${DISCOVERY_SERVICE_URL:http://client:client@localhost:8761/eureka}
   instance:
     preferIpAddress: true
