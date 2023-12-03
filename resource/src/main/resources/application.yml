@@ -11,6 +11,11 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: update # development only
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://auth"
 management:
   metrics:
     enabled: false
