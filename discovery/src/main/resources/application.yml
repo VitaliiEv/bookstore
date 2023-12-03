@@ -2,8 +2,8 @@ server:
   port: ${DISCOVERY_PORT:8761}
 spring:
   application:
-    name: bookstore-discovery
+    name: ${DISCOVERY_SERVICE:discovery}
 eureka:
   client:
-    registerWithEureka: false
+    registerWithEureka: true
     fetchRegistry: false

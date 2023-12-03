@@ -2,23 +2,14 @@ server:
   port: ${GATEWAY_PORT:8080}
 spring:
   application:
-    name: bookstore-gateway
+    name: gateway
   cloud:
     gateway:
       discovery:
         locator:
           enabled: true
-          predicates:
-            -
-              name: Path
-              args:
-                pattern : "'/**'"
-          filters:
-            -
-              name: RewritePath
-              args:
-                regexp: "'/(?<remaining>.*)'"
-                replacement: "'/${remaining}'"
+          locator:
+          lowerCaseServiceId: true
 management:
   metrics:
     enabled: false
@@ -31,6 +22,6 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://${DISCOVERY_SERVICE:localhost}:${DISCOVERY_PORT:8761}/eureka
+      defaultZone: ${DISCOVERY_SERVICE:http://client:client@localhost:8761/eureka}
   instance:
     preferIpAddress: true
